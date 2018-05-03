@@ -1,8 +1,12 @@
 package sample;
 
 public abstract class AliveObject {
+    public boolean falling = true;
+    public boolean jumping = false;
     public int x;
     public int y;
+    public double velY;
+    public double velX;
     public int width;
     public int height;
 

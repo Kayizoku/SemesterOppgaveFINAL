@@ -3,8 +3,8 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#exitGame" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SemesterOppgave.MainController">
+<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#exitGame" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
     <center>
-        <Canvas fx:id="canvas" height="400.0" onKeyPressed="#exitGame" width="400.0" BorderPane.alignment="CENTER" />
+        <Canvas fx:id="canvas" height="400.0"  width="400.0" BorderPane.alignment="CENTER" />
     </center>
 </BorderPane>

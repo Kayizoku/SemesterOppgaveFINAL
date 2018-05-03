@@ -92,12 +92,10 @@ public class Player extends AliveObject {
         return bbox().isColliding(other.bbox());
     }*/
 
-        public void jump () {
-            velY -= 3;
+    public void jump() {
+        velY -= 3;
 
-        }
-
-
+    }
 
 
     public void update(Player block, int[][] map) {
@@ -156,7 +154,7 @@ public class Player extends AliveObject {
 
         // if (falling && fallingColliding(map)) {
         //if (falling && fallingColliding(map)/* Men sjekker bare y-akse */) {
-          //  velY = 0;
+        //  velY = 0;
         //}
 
     }
@@ -168,7 +166,7 @@ public class Player extends AliveObject {
 
         if (playerY > 0 && (map[playerXStart][playerY] == 1 || map[playerXStop][playerY] == 1)) {
             while (map[playerXStart][playerY] == 1 || map[playerXStop][playerY] == 1) playerY--;
-            y = (int) ((playerY * (canvas.getHeight() / map.length) - height/3));
+            y = (int) ((playerY * (canvas.getHeight() / map.length) - height / 3));
 
             oldY = y;
             canJump = true;
@@ -180,15 +178,15 @@ public class Player extends AliveObject {
 
 
     private boolean movingRightColliding(int[][] map) {
-        double playerXStop = ((x+width)/(canvas.getWidth()/map.length));
-        double playerY = ((oldY+height)/(canvas.getHeight()/map[0].length));
+        double playerXStop = ((x + width) / (canvas.getWidth() / map.length));
+        double playerY = ((oldY + height) / (canvas.getHeight() / map[0].length));
 
-        int playerXInt = (int)Math.round(playerXStop);
-        int playerYInt = (int)Math.round(playerY);
-        if (playerXStop < map.length && playerY > 0 &&  map[playerXInt][playerYInt-1] == 1) {
+        int playerXInt = (int) Math.round(playerXStop);
+        int playerYInt = (int) Math.round(playerY);
+        if (playerXStop < map.length && playerY > 0 && map[playerXInt][playerYInt - 1] == 1) {
             System.out.println("true");
-            if (map[playerXInt][playerYInt-1] == 1) playerXInt--;
-            oldX = (int) (playerXInt * (canvas.getWidth() / map.length) - width/3);
+            if (map[playerXInt][playerYInt - 1] == 1) playerXInt--;
+            oldX = (int) (playerXInt * (canvas.getWidth() / map.length) - width / 3);
             return true;
         } else {
             return false;
@@ -196,20 +194,21 @@ public class Player extends AliveObject {
     }
 
     private boolean movingLeftColliding(int[][] map) {
-        double playerXStart =  ((x)/(canvas.getWidth()/map.length));
-        double playerY =  ((oldY+height)/(canvas.getHeight()/map[0].length));
+        double playerXStart = ((x) / (canvas.getWidth() / map.length));
+        double playerY = ((oldY + height) / (canvas.getHeight() / map[0].length));
 
-        int playerXLeftInt = (int)Math.round(playerXStart);
-        int playerYInt = (int)Math.round(playerY);
+        int playerXLeftInt = (int) Math.round(playerXStart);
+        int playerYInt = (int) Math.round(playerY);
 
 
-        if (playerXStart > 0 && playerY > 0 && map[playerXLeftInt][playerYInt-1] == 1) {
+        if (playerXStart > 0 && playerY > 0 && map[playerXLeftInt][playerYInt - 1] == 1) {
             System.out.println("true");
-            if (map[playerXLeftInt][playerYInt-1] == 1) playerXLeftInt++;
-            oldX = (int) ((playerXLeftInt * (canvas.getWidth() / map.length) + width/3));
+            if (map[playerXLeftInt][playerYInt - 1] == 1) playerXLeftInt++;
+            oldX = (int) ((playerXLeftInt * (canvas.getWidth() / map.length) + width / 3));
             return true;
         } else {
             return false;
+
         }
     }
 
@@ -219,28 +218,28 @@ public class Player extends AliveObject {
     }
 
 
+    //public int x, y, w, h;
 
-
-        //public int x, y, w, h;
-
-        public Player(int x, int y, int w, int h) {
-            super(x, y, w, h);
-        }
+    public Player(int x, int y, int w, int h) {
+        super(x, y, w, h);
+    }
 
     /*public void draw(GraphicsContext g) {
         g.strokeRect(x, y, width, height);
     }*/
 
-        public boolean isColliding(BBox box) {
-            return bbox().isColliding(box);
-        }
-        public void setPowerIsActive(boolean powerIsActive){
-            this.powerIsActive = powerIsActive;
-        }
+    public boolean isColliding(BBox box) {
+        return bbox().isColliding(box);
+    }
 
-        public boolean isColliding(AliveObject other) {
-            return bbox().isColliding(other.bbox());
-        }
+    public void setPowerIsActive(boolean powerIsActive) {
+        this.powerIsActive = powerIsActive;
+    }
+
+    public boolean isColliding(AliveObject other) {
+        return bbox().isColliding(other.bbox());
+    }
+
 
    /* public void drawPlayer(GraphicsContext g) {
         g.strokeRect(x, y, width, height);
@@ -252,6 +251,7 @@ public class Player extends AliveObject {
             }
 
         }
+
 
         public boolean isPowerIsActive(){
             return powerIsActive;

@@ -40,10 +40,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends MenuController implements Initializable {
 
-    public void exitGame(KeyEvent event) throws IOException {
-        if (event.getCode() == KeyCode.ESCAPE) {
+    public void exitGame(KeyEvent event) throws  IOException {
+        if(event.getCode() == KeyCode.ESCAPE) {
 
             Parent menuPane = null;
 
@@ -143,11 +143,12 @@ public class MainController implements Initializable {
         block = new Player(100, 100, 50, 70);
         player = new Player(160, 130, 10, 10);
         enemy = new Enemy(160, 330, 20, 30);
+       /* uganda = new Image(String.valueOf(getClass().getResource("sample/images/uganda.png")));
+        Goomba = new Image(String.valueOf(getClass().getResource("sample/images/Goomba.png")));*/
         map = new int[50][50];
         cellSize = canvas.getHeight() / map.length;
         createMap();
-        uganda = new Image(getClass().getResourceAsStream("/images/images.png"));
-        Goomba = new Image(getClass().getResourceAsStream("/images/GoombaNSMB.png"));
+
         //jumpOrigin = 300;
 
         gc = canvas.getGraphicsContext2D();
@@ -162,7 +163,7 @@ public class MainController implements Initializable {
 
         border.setFocusTraversable(true);
         canvas.setFocusTraversable(true);
-        music();
+        //music();
 
     }
 
@@ -468,7 +469,7 @@ public class MainController implements Initializable {
                         } else if (ke.getCode() == KeyCode.P) {
                             if (!paused) {
                                 paused = true;
-                                gc.drawImage(Menu.getPause(), 50, 50, 300, 300);
+                                //gc.drawImage(MenuController.getPause(), 50, 50, 300, 300);
                                 timeline.pause();
                             } else {
                                 paused = false;
@@ -482,13 +483,13 @@ public class MainController implements Initializable {
                             }
                         } else if (ke.getCode() == KeyCode.S) {
                             shooting();
-
                         }
                     });
                 }
             }
         }
     }
+
     // Controller commands for the game
 
 
@@ -513,6 +514,7 @@ public class MainController implements Initializable {
         }
 
     }
+/*
 
     public void playerMovement() {
         if (rightPressed.get()) {
@@ -526,19 +528,16 @@ public class MainController implements Initializable {
             falling = false;
             jumpOrigin = player.y;
         }
-
-    }
+*/
 
     // Drawing methods
-    public void draw() {
+   /* public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(Color.ANTIQUEWHITE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        /* gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight()); */
-
-        drawMap(gc);
+        *//* gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight()); *//*
 
 
         //gc.clearRect(player.x, player.y, player.width, player.height);
@@ -549,6 +548,7 @@ public class MainController implements Initializable {
         for (Enemy e : enemies) {
             gc.drawImage(goombaImage, e.x, e.y, 30, 30);
         }
+
         // gc.fillRect(goomba.x, goomba.y, goomba.width, goomba.height);
         gc.setFill(Color.RED);
         ugandaImage = new Image("SemesterOppgave/uganda.png");
@@ -577,26 +577,61 @@ public class MainController implements Initializable {
             int x = 15 + i * 65;
             int y = 6;
             gc.drawImage(heart, x, y, 50, 50);
+        }*/
+
+        public void draw() {
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+
+            gc.setFill(Color.ANTIQUEWHITE);
+            gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+            drawMap(gc);
+            gc.setFill(Color.BLUE);
+            gc.fillRect(enemy.x, enemy.y, enemy.width,player.height);
+            gc.setFill(Color.BLACK);
+            gc.fillRect(block.x, block.y, block.width, block.height);
+            gc.setFill(Color.RED);
+            gc.fillRect(player.x, player.y, player.width, player.height);
+            enemy.drawEnemy(gc);
+            player.drawPlayer(gc);
+            //block.draw(gc);
+
+            //gc.strokeText(player.isColliding(block) ? "Collision" : "NO Collision", 300, 300);
         }
 
-        //player.drawPlayer(gc);
+        public void drawMap(GraphicsContext gc) {
+            gc.setFill(Color.BROWN);
+            double width = canvas.getWidth() / map.length;
+            double height = canvas.getHeight() / map[0].length;
+
+            for (int x = 0; x < map.length; x++) {
+                for (int y = 0; y < map[0].length; y++) {
+                    if (map[x][y] == 1) {
+                        gc.fillRect(x * width, y * height, width, height);
+                    }
+                }
+            }
+            // Makes the map
+
+            //player.drawPlayer(gc);
        /* for (int i = 0; i <enemies.size() ; i++) {
             enemies.get(i).drawEnemy(gc);
         }*/
-        //må sjekkes
-        //goomba.drawEnemy(gc);
+            //må sjekkes
+            //goomba.drawEnemy(gc);
 
-        for (int i = 0; i < bullets.size(); i++) {
+            for (int i = 0; i < bullets.size(); i++) {
 
 
-            bullets.get(i).drawBullet(gc);
+                bullets.get(i).drawBullet(gc);
 
-            gc.strokeText(paused ? "Paused" : "Live", 200, 50);
-            gc.strokeText(player.isColliding(star) ? "Points: " + pointCounter : "Points: " + pointCounter, 5, 300);
+                gc.strokeText(paused ? "Paused" : "Live", 200, 50);
+                gc.strokeText(player.isColliding(star) ? "Points: " + pointCounter : "Points: " + pointCounter, 5, 300);
+
+            }
 
         }
 
-    }
 
     // Makes the map
     public void shooting() {
@@ -660,23 +695,15 @@ public class MainController implements Initializable {
 
     }
 
-    public void music() {
-        File songfile = new File("src/SemesterOppgave/Mario.mp3");
-        Media sound = new Media(songfile.toURI().toString());
+   /* public void music() {
+        //File songfile = new File("sample/music/Mario.mp3");
+        //Media sound = new Media(songfile.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
-        mediaPlayer.setOnEndOfMedia((new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.seek(Duration.ZERO);
-
-            }
-
-
-        }));
+        mediaPlayer.setOnEndOfMedia((() -> mediaPlayer.seek(Duration.ZERO)));
         mediaPlayer.play();
     }
-
+*/
 }
 
 
