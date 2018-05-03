@@ -1,5 +1,5 @@
 package  sample;
-
+//Comment
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -153,7 +153,7 @@ public class MainController extends MenuController implements Initializable {
 
         gc = canvas.getGraphicsContext2D();
         createMap();
-        draw();
+
 
 
         preparedGame();
@@ -165,12 +165,11 @@ public class MainController extends MenuController implements Initializable {
         canvas.setFocusTraversable(true);
         //music();
 
-    }
 
-    // ANIMATION
+        // ANIMATION
 
-    Duration duration = Duration.millis(1000 / 60);
-    KeyFrame keyframe = new KeyFrame(duration, (javafx.event.ActionEvent e) -> {
+        Duration duration = Duration.millis(1000 / 60);
+        KeyFrame keyframe = new KeyFrame(duration, (javafx.event.ActionEvent e) -> {
           /*  if (jumping) {
 
                 // Jumping
@@ -191,11 +190,12 @@ public class MainController extends MenuController implements Initializable {
                 }
             }*/
 
-        //  playerMovement();
-        player.playerGravity();
+            //  playerMovement();
+            player.playerGravity();
 
-        // SKRIVE NOE HER
-        //enemy.enemyMovement();
+
+            // SKRIVE NOE HER
+            //enemy.enemyMovement();
 
           /*  if (mapCoordinates()){
                 System.out.println("True");
@@ -204,108 +204,20 @@ public class MainController extends MenuController implements Initializable {
             } else {
             } */
 
-        player.update(block, map);
-        draw();
-
-        player.setCanvas(canvas);
-
-        timeline = new Timeline();
-        timeline.setCycleCount(Animation.INDEFINITE);
-        //timeline.getKeyFrames().add(keyframe);
-        timeline.play();
-
-      /*  rightPressed.addListener((observable, oldValue, newValue) -> System.out.println("Right pressed"));
-        leftPressed.addListener((observable, oldValue, newValue) -> System.out.println("Left pressed"));
-        spacePressed.addListener((observable, oldValue, newValue) -> System.out.println("Space pressed"));
-        spaceAndRightPressed.addListener((observable, oldValue, newValue) -> System.out.println("Space and right pressed together"));
-        spaceAndLeftPressed.addListener((observable, oldValue, newValue) -> System.out.println("Space and left pressed together"));
-        leftPressed.set(false); */
-
-        canvas.setOnKeyPressed(ke -> {
+            player.update(block, map);
+            draw();
 
 
-            String[] verdi = player.toString().split(",");
-            int x = player.x;
-            int y = player.y;
+            player.setCanvas(canvas);
 
-            System.out.println("x nå er: " + x + " y er nå : " + y);
-            if (ke.getCode() == KeyCode.SPACE) {
-                player.spacePressed.set(true); //Jump
-            } else if (ke.getCode() == KeyCode.RIGHT) {
-                player.rightPressed.set(true);
-            } else if (ke.getCode() == KeyCode.LEFT) {
-                player.leftPressed.set(true);
-
-            }
-
-
-
-
-
-
-
-    /* public void playerMovement() {
-        if (rightPressed.get()){
-            player.x +=5;
-        } if (leftPressed.get()) {
-            player.x -= 5;
-        } if (spacePressed.get()){
-            jump();
-        } if(playerVelocity.getY() < 10) {
-            playerVelocity = playerVelocity.add(0, 1);
-        } if(leftPressed.get() && player.isColliding(block)){
-            leftColliding = true;
-            leftPressed.set(false);
-        } else if (leftPressed.get()) {
-            leftColliding = false;
-        }
-        if(rightPressed.get() && player.isColliding(block)){
-            rightPressed.set(false);
-        }/* if(jumping && player.isColliding(block)){
-            //Set velY = 0;
-        }
-        // Drawing methods
-    } */
-
-            //gc.strokeText(player.isColliding(block) ? "Collision" : "NO Collision", 300, 300);
+            timeline = new Timeline();
+            timeline.setCycleCount(Animation.INDEFINITE);
+            //timeline.getKeyFrames().add(keyframe);
+            timeline.play();
         });
-    });
-
-    public void createMap() {
-        map = Levels.getLevel2();
 
 
-    /*public boolean mapCoordinates() {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map.length; j++) {
-                if (map[i][j] == 1) {
-                    /*System.out.println();
-                    System.out.println(i*cellSize);
-                    System.out.println(j*cellSize);
-                    System.out.println(player.x);
-                    System.out.println(player.y);*/
 
-                    /*int x1 = player.x;
-                    int y2 = player.y;
-                    int x2 = player.x + player.width;
-                    int y1 = player.y + player.height;
-                    int x3 = (int)(i*cellSize);
-                    int y3 = (int)(j*cellSize) + (int)cellSize;
-                    int x4 = (int)(x3 + cellSize);
-                    int y4 = (int)(j*cellSize);
-                    if(!(x3 > x2 || y3 < y2 || x1 > x4 || y1 > y4)){
-                        System.out.println("colliding");
-                    }*/
-                    /*if ((player.x/cellSize)  > i  && (player.x/cellSize) < (i + 1)
-                            && (player.y/cellSize) > j && (player.y/cellSize) < (j + 1)) {
-                        //player.x  > i * cellSize && player.x < i* cellSize + cellSize
-                        //                            && player.y > j * cellSize && player.y < j * cellSize + cellSize
-                        return true;
-                    }
-                }
-            }
-        } return false;
-    } */
 
 
         // NEED THIS?
@@ -429,7 +341,7 @@ public class MainController extends MenuController implements Initializable {
 
                 //  goomba.enemyMovement(3);
                 player.death();
-                draw();
+
                 if (player.hp == 0) {
                     timeline.stop();
                     //popup();
@@ -438,13 +350,6 @@ public class MainController extends MenuController implements Initializable {
                     timeline.setCycleCount(Animation.INDEFINITE);
                     timeline.getKeyFrames().add(keyframe);
                     timeline.play();
-
-
-                    rightPressed.addListener((observable, oldValue, newValue) -> System.out.println("Right pressed"));
-                    leftPressed.addListener((observable, oldValue, newValue) -> System.out.println("Left pressed"));
-                    spacePressed.addListener((observable, oldValue, newValue) -> System.out.println("Space pressed"));
-                    spaceAndRightPressed.addListener((observable, oldValue, newValue) -> System.out.println("Space and right pressed together"));
-                    spaceAndLeftPressed.addListener((observable, oldValue, newValue) -> System.out.println("Space and left pressed together"));
 
 
                     canvas.setOnKeyPressed(ke -> {
@@ -594,6 +499,8 @@ public class MainController extends MenuController implements Initializable {
             gc.fillRect(player.x, player.y, player.width, player.height);
             enemy.drawEnemy(gc);
             player.drawPlayer(gc);
+            gc.strokeText(paused ? "Paused" : "Live", 200, 50);
+            gc.strokeText(player.isColliding(star) ? "Points: " + pointCounter : "Points: " + pointCounter, 5, 300);
             //block.draw(gc);
 
             //gc.strokeText(player.isColliding(block) ? "Collision" : "NO Collision", 300, 300);
@@ -611,6 +518,11 @@ public class MainController extends MenuController implements Initializable {
                     }
                 }
             }
+        }
+
+    public void createMap() {
+        map = Levels.getLevel2();
+    }
             // Makes the map
 
             //player.drawPlayer(gc);
@@ -620,17 +532,13 @@ public class MainController extends MenuController implements Initializable {
             //må sjekkes
             //goomba.drawEnemy(gc);
 
-            for (int i = 0; i < bullets.size(); i++) {
 
 
-                bullets.get(i).drawBullet(gc);
+                ;
 
-                gc.strokeText(paused ? "Paused" : "Live", 200, 50);
-                gc.strokeText(player.isColliding(star) ? "Points: " + pointCounter : "Points: " + pointCounter, 5, 300);
 
-            }
 
-        }
+
 
 
     // Makes the map
