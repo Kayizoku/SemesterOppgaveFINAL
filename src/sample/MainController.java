@@ -93,12 +93,12 @@ public class MainController extends MenuController implements Initializable {
     Image uganda;
     private Image Goomba;
 
-   /* final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
+    final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
     final BooleanProperty rightPressed = new SimpleBooleanProperty(false);
     final BooleanProperty leftPressed = new SimpleBooleanProperty(false);
     final BooleanBinding spaceAndRightPressed = spacePressed.and(rightPressed);
     final BooleanBinding spaceAndLeftPressed = spacePressed.and(leftPressed);
-    boolean leftColliding = false; */
+    boolean leftColliding = false;
 
 
     List<Enemy> enemies = new LinkedList<Enemy>();
@@ -124,11 +124,11 @@ public class MainController extends MenuController implements Initializable {
     boolean paused = false;
     Image starImg;
     private int jumpHeight = 100;
-    final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
+    /*final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
     final BooleanProperty rightPressed = new SimpleBooleanProperty(false);
     final BooleanProperty leftPressed = new SimpleBooleanProperty(false);
     final BooleanBinding spaceAndRightPressed = spacePressed.and(rightPressed);
-    final BooleanBinding spaceAndLeftPressed = spacePressed.and(leftPressed);
+    final BooleanBinding spaceAndLeftPressed = spacePressed.and(leftPressed); */
     public static int HEALTH = 100 * 2;
 
 
@@ -168,8 +168,11 @@ public class MainController extends MenuController implements Initializable {
 
         // ANIMATION
 
+
         Duration duration = Duration.millis(1000 / 60);
+        System.out.println("Nice2");
         KeyFrame keyframe = new KeyFrame(duration, (javafx.event.ActionEvent e) -> {
+
           /*  if (jumping) {
 
                 // Jumping
@@ -206,17 +209,55 @@ public class MainController extends MenuController implements Initializable {
 
             player.update(block, map);
             draw();
-
+        });
 
             player.setCanvas(canvas);
 
             timeline = new Timeline();
             timeline.setCycleCount(Animation.INDEFINITE);
-            //timeline.getKeyFrames().add(keyframe);
+            timeline.getKeyFrames().add(keyframe);
             timeline.play();
+
+
+
+        canvas.setOnKeyPressed(ke -> {
+            if (ke.getCode() == KeyCode.SPACE) {
+                spacePressed.set(true);
+            } else if (ke.getCode() == KeyCode.RIGHT) {
+                rightPressed.set(true);
+            } else if (ke.getCode() == KeyCode.LEFT) {
+                leftPressed.set(true);
+            } else if (ke.getCode() == KeyCode.L) {
+                popup();
+            }
         });
 
+        canvas.setOnKeyReleased(ke -> {
+            if (ke.getCode() == KeyCode.SPACE) {
+                spacePressed.set(false);
+            } else if (ke.getCode() == KeyCode.RIGHT) {
+                rightPressed.set(false);
+            } else if (ke.getCode() == KeyCode.LEFT) {
+                leftPressed.set(false);
+            } else if (ke.getCode() == KeyCode.P) {
+                if (!paused) {
+                    paused = true;
+                    //gc.drawImage(MenuController.getPause(), 50, 50, 300, 300);
+                    timeline.pause();
+                } else {
+                    paused = false;
+                    timeline.play();
+                }
+            } else if (ke.getCode() == KeyCode.J) {
+                player.hp -= 1;
+                if (player.hp <= 0) {
+                    popup();
 
+                }
+            } else if (ke.getCode() == KeyCode.S) {
+                shooting();
+            }
+        });
 
 
 
@@ -244,13 +285,14 @@ public class MainController extends MenuController implements Initializable {
         } else if (leftPressed.get() == true) {
 
             canvas.setTranslateX((-player.x + 200));
-
+        }
             //** SLUTT **/
 
-            player.update(block, map);
-            if (bliSkadet == false)
 
+            if (bliSkadet == false) {
                 counter++;
+            }
+
             if (counter == maxVerdi) {
                 bliSkadet = true;
                 counter = 0;
@@ -305,15 +347,17 @@ public class MainController extends MenuController implements Initializable {
                         j++;
                     }
                 }
+            }
 
                 //gc.fillRect(bb.getMinX(),bb.getMinY(),bb.getMaxX()-bb.getMinX(),bb.getMaxY()-bb.getMinY());
 
                 for (int k = 0; k < stars.size(); k++) {
-                    if (player.isColliding(stars.get(i))) {
+                    if (player.isColliding(stars.get(k))) {
                         pointCounter++;
                         stars.remove(stars.get(k));
                         k++;
                     }
+                }
 
                /* if(player.x==coin.x){
                     System.out.println("Heihei");
@@ -332,7 +376,7 @@ public class MainController extends MenuController implements Initializable {
 
                         }
                     }
-                }
+
                 /*if(player.isColliding()){
                 pointCounter++;
                 } if(player.isColliding(star)&& takenCoin){
@@ -346,54 +390,13 @@ public class MainController extends MenuController implements Initializable {
                     timeline.stop();
                     //popup();
 
-                    timeline = new Timeline();
-                    timeline.setCycleCount(Animation.INDEFINITE);
-                    timeline.getKeyFrames().add(keyframe);
-                    timeline.play();
 
 
-                    canvas.setOnKeyPressed(ke -> {
-                        if (ke.getCode() == KeyCode.SPACE) {
-                            spacePressed.set(true);
-                        } else if (ke.getCode() == KeyCode.RIGHT) {
-                            rightPressed.set(true);
-                        } else if (ke.getCode() == KeyCode.LEFT) {
-                            leftPressed.set(true);
-                        } else if (ke.getCode() == KeyCode.L) {
-                            popup();
-                        }
-                    });
 
-                    canvas.setOnKeyReleased(ke -> {
-                        if (ke.getCode() == KeyCode.SPACE) {
-                            spacePressed.set(false);
-                        } else if (ke.getCode() == KeyCode.RIGHT) {
-                            rightPressed.set(false);
-                        } else if (ke.getCode() == KeyCode.LEFT) {
-                            leftPressed.set(false);
-                        } else if (ke.getCode() == KeyCode.P) {
-                            if (!paused) {
-                                paused = true;
-                                //gc.drawImage(MenuController.getPause(), 50, 50, 300, 300);
-                                timeline.pause();
-                            } else {
-                                paused = false;
-                                timeline.play();
-                            }
-                        } else if (ke.getCode() == KeyCode.J) {
-                            player.hp -= 1;
-                            if (player.hp <= 0) {
-                                popup();
-
-                            }
-                        } else if (ke.getCode() == KeyCode.S) {
-                            shooting();
-                        }
-                    });
                 }
             }
-        }
-    }
+
+
 
     // Controller commands for the game
 
